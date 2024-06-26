@@ -27,8 +27,8 @@ window.onload = function () {
       // tinyv[i] = 0;
       var rats = createDiv(16, 16);
       rats.style.backgroundColor = "transparent";
-      rats.style.visibility = "hidden";
-      var rlef = createDiv(4, 4);
+      rats.style.visibility = "visible";
+      var rlef = createDiv(2, 2);
       // var rdow = createDiv(4, 4);
       rats.appendChild(rlef);
       // rats.appendChild(rdow);
