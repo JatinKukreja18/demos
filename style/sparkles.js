@@ -29,20 +29,20 @@ window.onload = function () {
       rats.style.backgroundColor = "transparent";
       rats.style.visibility = "visible";
       var rlef = createDiv(2, 2);
-      var rdow = createDiv(2, 2);
-      var rth = createDiv(2, 2);
+      // var rdow = createDiv(2, 2);
+      // var rth = createDiv(2, 2);
       rats.appendChild(rlef);
-      rats.appendChild(rdow);
-      rats.appendChild(rth);
+      // rats.appendChild(rdow);
+      // rats.appendChild(rth);
       rlef.style.top = "1px";
       rlef.style.borderRadius = "50%"
       rlef.style.left = "1px";
-      rdow.style.top = "4px";
-      rdow.style.borderRadius = "50%"
-      rdow.style.left = "5px";
-      rth.style.top = "6px";
-      rth.style.borderRadius = "50%"
-      rth.style.left = "0px";
+      // rdow.style.top = "4px";
+      // rdow.style.borderRadius = "50%"
+      // rdow.style.left = "5px";
+      // rth.style.top = "6px";
+      // rth.style.borderRadius = "50%"
+      // rth.style.left = "0px";
       document.body.appendChild(star[i] = rats);
     }
     set_width();
@@ -58,7 +58,7 @@ function sparkle() {
     for (c = 0; c < sparkles; c++) if (!starv[c]) {
       star[c].style.left = (starx[c] = x) + "px";
       star[c].style.top = (stary[c] = y) + "px";
-      star[c].style.clip = "rect(0px, 9px, 9px, 0px)";
+      star[c].style.clip = "rect(0px, 9px, 9gpx, 0px)";
       star[c].style.visibility = "visible";
       starv[c] = 50;
       break;
