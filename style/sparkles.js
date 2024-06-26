@@ -58,7 +58,7 @@ function sparkle() {
     for (c = 0; c < sparkles; c++) if (!starv[c]) {
       star[c].style.left = (starx[c] = x) + "px";
       star[c].style.top = (stary[c] = y) + "px";
-      star[c].style.clip = "rect(0px, 9px, 9gpx, 0px)";
+      star[c].style.clip = "rect(0px, 6px, 6px, 0px)";
       star[c].style.visibility = "visible";
       starv[c] = 50;
       break;
