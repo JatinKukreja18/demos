@@ -2363,157 +2363,157 @@
         get: getFps
     };
 
-    class Tween {
-        constructor({ from, to, duration, ease, delay },
-            onUpdate,
-            onComplete) {
+    // class Tween {
+    //     constructor({ from, to, duration, ease, delay },
+    //         onUpdate,
+    //         onComplete) {
 
-            this.loop = this.loop.bind(this);
-            this.kill = this.kill.bind(this);
+    //         this.loop = this.loop.bind(this);
+    //         this.kill = this.kill.bind(this);
 
-            this.onUpdate = onUpdate;
-            this.onComplete = onComplete;
+    //         this.onUpdate = onUpdate;
+    //         this.onComplete = onComplete;
 
-            if (Array.isArray(this._from)) {
-                this._from = from.slice();
-                this._val = from.slice();
-            } else if (typeof from === "object") {
-                this._from = Object.assign({}, from);
-                this._val = Object.assign({}, from);
-            } else {
-                this._from = from;
-                this._val = from;
-            }
+    //         if (Array.isArray(this._from)) {
+    //             this._from = from.slice();
+    //             this._val = from.slice();
+    //         } else if (typeof from === "object") {
+    //             this._from = Object.assign({}, from);
+    //             this._val = Object.assign({}, from);
+    //         } else {
+    //             this._from = from;
+    //             this._val = from;
+    //         }
 
-            this._to = to;
-            this._duration = duration;
+    //         this._to = to;
+    //         this._duration = duration;
 
-            if (typeof ease === "string") {
-                if (!window._vars || !window._vars.ease) {
-                    console.error("Ease is specified as a string, but global easings are missing. Try passing a bezier function or enabling the ease.config script.");
-                    return;
-                }
+    //         if (typeof ease === "string") {
+    //             if (!window._vars || !window._vars.ease) {
+    //                 console.error("Ease is specified as a string, but global easings are missing. Try passing a bezier function or enabling the ease.config script.");
+    //                 return;
+    //             }
 
-                this._ease = window._vars.ease.bezier[ease];
-            } else if (typeof ease === "function") {
-                this._ease = ease;
-            } else {
-                this._ease = (v) => {
-                    return v;
-                };
-            }
+    //             this._ease = window._vars.ease.bezier[ease];
+    //         } else if (typeof ease === "function") {
+    //             this._ease = ease;
+    //         } else {
+    //             this._ease = (v) => {
+    //                 return v;
+    //             };
+    //         }
 
-            if (window._masterLoop) {
-                this._useMasterLoop = true;
-            }
+    //         if (window._masterLoop) {
+    //             this._useMasterLoop = true;
+    //         }
 
-            this._frame = 0;
-            this._progress = 0;
-            this._easeProgress = 0;
-            this._startTime = Date.now();
+    //         this._frame = 0;
+    //         this._progress = 0;
+    //         this._easeProgress = 0;
+    //         this._startTime = Date.now();
 
-            this._delay = delay ? delay : 0;
+    //         this._delay = delay ? delay : 0;
 
-            this._duration;
-            this._killed = false;
+    //         this._duration;
+    //         this._killed = false;
 
-            this._targetFps = 60;
-            this._resultFps = fps$1.get();
-        }
+    //         this._targetFps = 60;
+    //         this._resultFps = fps$1.get();
+    //     }
 
-        loop() {
-            if (this._killed) return;
+    //     loop() {
+    //         if (this._killed) return;
 
-            {
-                this._frame += 1;
-                this._progress = Math.max(0, this._frame - this._delay * this._resultFps) / (this._duration * this._resultFps);
-            }
+    //         {
+    //             this._frame += 1;
+    //             this._progress = Math.max(0, this._frame - this._delay * this._resultFps) / (this._duration * this._resultFps);
+    //         }
 
-            this._progress = Math.min(1, this._progress);
+    //         this._progress = Math.min(1, this._progress);
 
-            if (this._ease) {
-                this._easeProgress = this._ease(this._progress);
-            } else {
-                this._easeProgress = this._progress;
-            }
+    //         if (this._ease) {
+    //             this._easeProgress = this._ease(this._progress);
+    //         } else {
+    //             this._easeProgress = this._progress;
+    //         }
 
-            let newVal, delta;
+    //         let newVal, delta;
 
-            if (Array.isArray(this._from) && Array.isArray(this._to)) {
-                newVal = mixArrays(this._from, this._to, this._easeProgress);
-                delta = subArrays(newVal, this._val);
-            } else if (typeof this._from === "object" && typeof this._to === "object") {
-                newVal = mixObjects(this._from, this._to, this._easeProgress);
-                delta = subObjects(newVal, this._val);
-            } else if (typeof this._from === "number" && typeof this._to === "number") {
-                newVal = mix(this._from, this._to, this._easeProgress);
-                delta = newVal - this._val;
-            } else {
-                console.error(
-                    `unexpected value types for inputs: ${typeof from}, ${typeof to}`
-                );
-                return;
-            }
+    //         if (Array.isArray(this._from) && Array.isArray(this._to)) {
+    //             newVal = mixArrays(this._from, this._to, this._easeProgress);
+    //             delta = subArrays(newVal, this._val);
+    //         } else if (typeof this._from === "object" && typeof this._to === "object") {
+    //             newVal = mixObjects(this._from, this._to, this._easeProgress);
+    //             delta = subObjects(newVal, this._val);
+    //         } else if (typeof this._from === "number" && typeof this._to === "number") {
+    //             newVal = mix(this._from, this._to, this._easeProgress);
+    //             delta = newVal - this._val;
+    //         } else {
+    //             console.error(
+    //                 `unexpected value types for inputs: ${typeof from}, ${typeof to}`
+    //             );
+    //             return;
+    //         }
 
-            if (Array.isArray(newVal)) {
-                this._val = newVal.slice();
-            } else if (typeof newVal === "object") {
-                this._val = Object.assign({}, newVal);
-            } else {
-                this._val = newVal;
-            }
+    //         if (Array.isArray(newVal)) {
+    //             this._val = newVal.slice();
+    //         } else if (typeof newVal === "object") {
+    //             this._val = Object.assign({}, newVal);
+    //         } else {
+    //             this._val = newVal;
+    //         }
 
-            this.onUpdate({
-                value: this._val,
-                delta: delta,
-                progress: this._progress,
-                easeProgress: this._easeProgress
-            });
+    //         this.onUpdate({
+    //             value: this._val,
+    //             delta: delta,
+    //             progress: this._progress,
+    //             easeProgress: this._easeProgress
+    //         });
 
-            if (this._progress >= 1) {
-                if (this.onComplete && typeof this.onComplete === "function") {
-                    this.onComplete({
-                        value: this._val,
-                        delta: delta,
-                    });
-                }
+    //         if (this._progress >= 1) {
+    //             if (this.onComplete && typeof this.onComplete === "function") {
+    //                 this.onComplete({
+    //                     value: this._val,
+    //                     delta: delta,
+    //                 });
+    //             }
 
-                this.resolve({
-                    value: this._val,
-                    delta: delta,
-                });
+    //             this.resolve({
+    //                 value: this._val,
+    //                 delta: delta,
+    //             });
 
-                if (this._useMasterLoop) {
-                    window._masterLoop.remove(this.loop);
-                }
+    //             if (this._useMasterLoop) {
+    //                 window._masterLoop.remove(this.loop);
+    //             }
 
-                return;
-            }
+    //             return;
+    //         }
 
-            if (!this._useMasterLoop) {
-                requestAnimationFrame(this.loop);
-            }
-        }
+    //         if (!this._useMasterLoop) {
+    //             requestAnimationFrame(this.loop);
+    //         }
+    //     }
 
-        start() {
-            this.promise = new Promise((resolve, reject) => {
-                this.resolve = resolve;
-                this.reject = reject;
-            });
+    //     start() {
+    //         this.promise = new Promise((resolve, reject) => {
+    //             this.resolve = resolve;
+    //             this.reject = reject;
+    //         });
 
-            this.loop();
-            if (this._useMasterLoop) {
-                window._masterLoop.push(this.loop);
-            }
-        }
+    //         this.loop();
+    //         if (this._useMasterLoop) {
+    //             window._masterLoop.push(this.loop);
+    //         }
+    //     }
 
-        kill() {
-            this._killed = true;
-            if (this._useMasterLoop) {
-                window._masterLoop.remove(this.loop);
-            }
-        }
-    }
+    //     kill() {
+    //         this._killed = true;
+    //         if (this._useMasterLoop) {
+    //             window._masterLoop.remove(this.loop);
+    //         }
+    //     }
+    // }
 
     var simpleTween = (options, onUpdate, onComplete) => {
         let tween = new Tween(options, onUpdate, onComplete);
@@ -75112,7 +75112,6 @@ void main() {
                         ? { type: value.type, value: uniforms[key].value.slice() }
                         : { type: value.type, value: uniforms[key].value };
         });
-
         return result;
     };
 
@@ -85140,7 +85139,7 @@ void main() {
 
             if (tex._type === "video") {
                 this.updateUniforms({
-                    uCircle: 1,
+                    uCircle: 0,
                 });
             } else {
                 this.updateUniforms({
@@ -85378,7 +85377,6 @@ void main() {
                     src = options.video;
                     type = "video";
                 }
-
                 return {
                     element: el,
                     src: src,
@@ -85455,7 +85453,6 @@ void main() {
 
             this._poolIndex++;
             this._poolIndex %= this._poolItems.length;
-
             return texture;
         }
     }

@@ -2045,7 +2045,7 @@ header .menu-btn {
     top: 0;
     bottom: 0;
     right: 0;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     border: 1px solid #424242;
     transition: all 1s var(--ease)
 }
